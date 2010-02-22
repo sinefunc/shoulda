@@ -6,8 +6,8 @@ module Shoulda # :nodoc:
       #
       # Options:
       # * <tt>with_message</tt> - value the test expects to find in
-      #   <tt>errors[:attribute]</tt>. Regexp or string. If omitted,
-      #   the test looks for any errors in <tt>errors[:attribute]</tt>.
+      #   <tt>errors.on(:attribute)</tt>. Regexp or string. If omitted,
+      #   the test looks for any errors in <tt>errors.on(:attribute)</tt>.
       #
       # Example:
       #   it { should_not allow_value('bad').for(:isbn) }
@@ -59,7 +59,7 @@ module Shoulda # :nodoc:
 
         def errors_match?
           @instance.valid?
-          @errors = @instance.errors[@attribute]
+          @errors = @instance.errors.on(@attribute)
           @errors = [@errors] unless @errors.is_a?(Array)
           @expected_message ? (errors_match_regexp? || errors_match_string?) : (@errors != [nil])
         end
